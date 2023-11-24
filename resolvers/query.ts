@@ -1,3 +1,4 @@
+// @deno-types="npm:@types/express@4"
 import { getAsyncIterableWithCancel } from "../../../AppData/Local/deno/npm/registry.npmjs.org/@graphql-tools/utils/9.2.1/typings/withCancel.d.ts";
 import { AnimalModel, AnimalModelType } from "../db/schema.ts";
 import { Animal } from "../types.ts";

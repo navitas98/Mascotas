@@ -1,3 +1,4 @@
+// @deno-types="npm:@types/express@4"
 import mongosose from "mongoose"
 import { Animal } from "../types.ts";
 

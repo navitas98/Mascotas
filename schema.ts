@@ -1,3 +1,4 @@
+// @deno-types="npm:@types/express@4"
 export const typeDefs= `#graphql
 type Animal{
     id:ID!

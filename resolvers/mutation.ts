@@ -1,3 +1,4 @@
+// @deno-types="npm:@types/express@4"
 import { GraphQLError, __Directive } from "graphql";
 import { AnimalModel } from "../db/schema.ts";
 import { Animal } from "../types.ts";
