@@ -1,10 +1,11 @@
-// @deno-types="npm:@types/express@4"
-import { typeDefs } from "./schema.ts";
+
+
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { Query } from "./resolvers/query.ts";
 import { Mutation } from "./resolvers/mutation.ts";
 import mongoose from "mongoose"
+import { typeDefs } from "./gql/schema.ts";
 const resolvers={
   Query,
   Mutation

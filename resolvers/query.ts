@@ -1,38 +1,16 @@
-// @deno-types="npm:@types/express@4"
-import { getAsyncIterableWithCancel } from "../../../AppData/Local/deno/npm/registry.npmjs.org/@graphql-tools/utils/9.2.1/typings/withCancel.d.ts";
-import { AnimalModel, AnimalModelType } from "../db/schema.ts";
-import { Animal } from "../types.ts";
+import { GraphQLError } from "graphql";
+import { MascotaModel } from "../bd/mascota.ts";
+import { Mascota } from "../type.ts";
+import { MascotaModelToMascota } from "../controllers/mascotaModelToMascota.ts";
 
-
-export const Query = {
- 
-   hello:()=>"funciona",
-   getAnimal:async(_:unknown,args:{id:string}):Promise<Animal>=>{
-    try {
-        const id=args.id
-        const animal=await AnimalModel.findById(id).exec();
-        if(!animal)throw new  Error("Animal no encontrado") 
-        
-        return {
-          id:animal._id.toString(),
-          nombre:animal.nombre,
-          raza:animal.raza
-        }
-    } catch (error) {
-        throw new Error(error)
+export const Query={
+    mascota:async(_:unknown,args:{id:string}):Promise<Mascota>=>{
+        const mascota=await MascotaModel.findById(args.id);
+        if(!mascota)throw new GraphQLError(`No hemos encontrado ninguna mascota con el siguiente id: ${args.id}`);
+        return MascotaModelToMascota(mascota);
+    },
+    mascotas:async():Promise<Mascota[]>=>{
+        const mascotas=await MascotaModel.find().exec();
+        return mascotas.map((a)=>MascotaModelToMascota(a));
     }
-   },
-   getAnimales:async():Promise<Animal[]>=>{
-    try {
-        const animales=await AnimalModel.find({}).exec();
-        return animales.map((e)=>({
-            id:e._id.toString(),
-            nombre:e.nombre,
-            raza:e.raza
-        }))
-    } catch (error) {
-        throw new Error(error)
-    }
-   }
 }
-;
